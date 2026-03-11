@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriBot-AI Dashboard</title>
+<link rel="stylesheet" href="design.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- Login Overlay -->
+<div class="auth-overlay" id="auth-overlay">
+<div class="auth-container">
+<div class="auth-header">
+<img src="../images/Agribot.png" alt="AgriBot-AI Logo" class="auth-logo">
+<h2>AgriBot-AI</h2>
+<p>Intelligent Smart Agriculture Monitoring</p>
+</div>
+<form class="auth-form" id="login-form">
+<input type="text" placeholder="Full Name" required>
+<input type="email" placeholder="Email Address" required>
+<input type="password" placeholder="Password" required>
+<button type="submit" class="auth-btn">Login to Dashboard</button>
+</form>
+<p class="auth-note">Secure login for authorized users only</p>
+</div>
+</div>
+
+<!-- Top Bar with Status -->
+<div class="top-bar">
+<div class="status">
+<span class="connected">● Connected</span>
+<div class="status-buttons">
+<button class="btn" id="notification-btn" title="Notifications">🔔</button>
+<button class="btn" id="theme-toggle">🌙</button>
+<div class="user-dropdown">
+<button class="btn" id="user-btn">Login</button>
+<div class="dropdown-menu" id="user-dropdown-menu">
+<a href="#" class="dropdown-item" data-action="profile">👤 Profile</a>
+<a href="#" class="dropdown-item" data-action="settings">⚙️ Settings</a>
+<a href="#" class="dropdown-item" data-action="logout">🚪 Logout</a>
+</div>
+</div>
+<button class="btn">Refresh</button>
+</div>
+</div>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+<div class="logo">
+<a href="../index.html">
+<img src="../images/Agribot.png" alt="AgriBot-AI Logo" class="logo-img">
+</a>
+<div>
+<h2>AgriBot-AI</h2>
+<p>Smart Agriculture</p>
+</div>
+</div>
+
+<nav class="nav-tabs">
+<a href="#sensors" class="nav-tab active" data-target="sensors">📊 Sensors</a>
+<a href="#profile" class="nav-tab" data-target="profile">👤 Profile</a>
+<a href="#about" class="nav-tab" data-target="about">🌿 About</a>
+<a href="#history" class="nav-tab" data-target="history">📉 History</a>
+<a href="#table" class="nav-tab" data-target="table">📋 Data</a>
+<a href="#logs" class="nav-tab" data-target="logs">🔔 Logs</a>
+<a href="#ai" class="nav-tab" data-target="ai">🤖 AI</a>
+<a href="#credits" class="nav-tab" data-target="credits">👥 Credits</a>
+</nav>
+</div>
+
+<!-- Mobile Menu Button -->
+<button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+
+<!-- Main Content Area -->
+<main class="main-content">
+
+<!-- Sensors Section (Default/Visible) -->
+<section class="page-section active" id="sensors-section">
+<section class="cards">
+
+<div class="card clickable" data-sensor="ph">
+<h3>pH Level</h3>
+<p class="value"><span id="ph">6.5</span></p>
+<p class="range">Min: 5.5 | Max: 7.5</p>
+<span class="click-hint">Click for history</span>
+</div>
+
+<div class="card clickable" data-sensor="moisture">
+<h3>Moisture</h3>
+<p class="value"><span id="moisture">62</span>%</p>
+<p class="range">Min: 35 | Max: 85</p>
+<span class="click-hint">Click for history</span>
+</div>
+
+<div class="card clickable" data-sensor="temperature">
+<h3>Temperature</h3>
+<p class="value"><span id="temperature">25</span>°C</p>
+<p class="range">Min: 18 | Max: 35</p>
+<span class="click-hint">Click for history</span>
+</div>
+
+</section>
+</section>
+
+<!-- Profile Section -->
+<section class="page-section" id="profile-section">
+<div class="content-card">
+<div class="profile-header">
+<img src="../images/Agribot.png" alt="Profile" class="profile-avatar">
+<div class="profile-info">
+<h3 id="profile-name">User Profile</h3>
+<p id="profile-email">user@example.com</p>
+<span class="profile-status">Active</span>
+</div>
+</div>
+
+<div class="profile-stats">
+<div class="profile-stat-card">
+<span class="profile-stat-icon">📅</span>
+<span class="profile-stat-label">Member Since</span>
+<span class="profile-stat-value" id="member-since">January 2024</span>
+</div>
+<div class="profile-stat-card">
+<span class="profile-stat-icon">🔐</span>
+<span class="profile-stat-label">Total Logins</span>
+<span class="profile-stat-value" id="total-logins">5</span>
+</div>
+<div class="profile-stat-card">
+<span class="profile-stat-icon">🕐</span>
+<span class="profile-stat-label">Last Login</span>
+<span class="profile-stat-value" id="last-login">Today, 9:30 AM</span>
+</div>
+</div>
+
+<div class="profile-history">
+<h4>📜 Login History</h4>
+<div class="logs-container" id="profileLoginHistoryContainer">
+<!-- Login history will be populated by JavaScript -->
+</div>
+</div>
+</div>
+</section>
+
+<!-- About Section -->
+<section class="page-section" id="about-section">
+<div class="content-card">
+<div class="section-header">
+<img src="../images/lettuce.jpg" alt="Lettuce Batavia" class="section-img">
+<div class="section-title">
+<h3>🥬 Lettuce Batavia</h3>
+<p class="scientific">Lactuca sativa var. capitata</p>
+</div>
+</div>
+<p class="about-desc">
+Batavia lettuce, also known as crisphead lettuce, is a popular variety characterized by its loose, crunchy leaves with distinctive frilled edges. Originally from France, this lettuce type combines the texture of crisphead lettuce with the appearance of leaf lettuce. It's highly valued for its refreshing taste, high water content, and nutritional benefits.
+</p>
+<div class="stats-grid">
+<div class="stat-card">
+<span class="stat-icon">🌡️</span>
+<strong class="stat-info"><span>18-24°C</span></strong>
+<span>Optimal Temp</span>
+</div>
+<div class="stat-card">
+<span class="stat-icon">💧</span>
+<strong class="stat-info"><span>60-80%</span></strong>
+<span>Moisture</span>
+</div>
+<div class="stat-card">
+<span class="stat-icon">⚗️</span>
+<strong class="stat-info"><span>6.0-7.0</span></strong>
+<span>pH Level</span>
+</div>
+<div class="stat-card">
+<span class="stat-icon">☀️</span>
+<strong class="stat-info"><span>6-8 hrs</span></strong>
+<span>Sunlight</span>
+</div>
+<div class="stat-card">
+<span class="stat-icon">📅</span>
+<strong class="stat-info"><span>45-60</span></strong>
+<span>Days to Harvest</span>
+</div>
+<div class="stat-card">
+<span class="stat-icon">📈</span>
+<strong class="stat-info"><span>High</span></strong>
+<span>Yield</span>
+</div>
+</div>
+<div class="tips-section">
+<h5>🌱 Growing Tips for Batavia Lettuce</h5>
+<ul class="tips-list">
+<li>Plant in well-draining soil rich in organic matter</li>
+<li>Keep soil consistently moist but not waterlogged</li>
+<li>Harvest outer leaves first for continuous growth</li>
+<li>Provide afternoon shade in hot climates</li>
+<li>Monitor nitrogen levels for healthy green leaves</li>
+<li>Ideal for both hydroponic and soil-based cultivation</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- History Section -->
+<section class="page-section" id="history-section">
+<div class="content-card">
+<h3>📉 Sensor History</h3>
+<div class="history-grid">
+<div class="history-card">
+<h4>🌡️ Temperature</h4>
+<div class="history-chart">
+<canvas id="tempChart"></canvas>
+</div>
+</div>
+<div class="history-card">
+<h4>⚗️ pH Level</h4>
+<div class="history-chart">
+<canvas id="phChart"></canvas>
+</div>
+</div>
+<div class="history-card">
+<h4>💧 Soil Moisture</h4>
+<div class="history-chart">
+<canvas id="moistureChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Data Table Section -->
+<section class="page-section" id="table-section">
+<div class="content-card">
+<h3>📋 Data History Table</h3>
+<div class="table-container">
+<table id="dataTable">
+<thead>
+<tr>
+<th>Time</th>
+<th>Temp (°C)</th>
+<th>pH Level</th>
+<th>Soil Moisture (%)</th>
+<th>Nitrogen (mg/L)</th>
+<th>Phosphorus (mg/L)</th>
+<th>Potassium (mg/L)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>6:00 AM</td><td>22</td><td>6.2</td><td>65</td><td>20</td><td>5</td><td>18</td></tr>
+<tr><td>7:00 AM</td><td>23</td><td>6.3</td><td>64</td><td>21</td><td>5</td><td>17</td></tr>
+<tr><td>8:00 AM</td><td>24</td><td>6.4</td><td>63</td><td>22</td><td>6</td><td>19</td></tr>
+<tr><td>9:00 AM</td><td>25</td><td>6.5</td><td>62</td><td>23</td><td>6</td><td>18</td></tr>
+<tr><td>10:00 AM</td><td>26</td><td>6.6</td><td>60</td><td>24</td><td>6</td><td>19</td></tr>
+<tr><td>11:00 AM</td><td>27</td><td>6.7</td><td>58</td><td>25</td><td>7</td><td>20</td></tr>
+<tr><td>12:00 PM</td><td>28</td><td>6.8</td><td>55</td><td>26</td><td>7</td><td>18</td></tr>
+<tr><td>1:00 PM</td><td>30</td><td>7.0</td><td>55</td><td>24</td><td>6</td><td>21</td></tr>
+<tr><td>2:00 PM</td><td>29</td><td>6.9</td><td>60</td><td>27</td><td>7</td><td>20</td></tr>
+<tr><td>3:00 PM</td><td>28</td><td>6.8</td><td>62</td><td>26</td><td>6</td><td>22</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<!-- Logs Section -->
+<section class="page-section" id="logs-section">
+<div class="content-card">
+<h3>🔔 System Logs & Alerts</h3>
+<div class="logs-container" id="logsContainer">
+<div class="log-entry warning">
+<span class="log-time">3:00 PM</span>
+<span class="log-icon">🌡️</span>
+<span class="log-message"><strong>Temperature High:</strong> Current temp is 28°C. Consider opening vents or turning on fans to cool the greenhouse.</span>
+</div>
+<div class="log-entry info">
+<span class="log-time">2:00 PM</span>
+<span class="log-icon">💧</span>
+<span class="log-message"><strong>Soil Moisture Low:</strong> Moisture dropped to 55%. Irrigation system activated.</span>
+</div>
+<div class="log-entry warning">
+<span class="log-time">1:00 PM</span>
+<span class="log-icon">⚗️</span>
+<span class="log-message"><strong>pH Level High:</strong> pH reached 7.0. Consider adding sulfur to lower pH levels.</span>
+</div>
+<div class="log-entry success">
+<span class="log-time">12:00 PM</span>
+<span class="log-icon">🟢</span>
+<span class="log-message"><strong>System Normal:</strong> All nutrient levels within optimal range.</span>
+</div>
+<div class="log-entry info">
+<span class="log-time">11:00 AM</span>
+<span class="log-icon">☀️</span>
+<span class="log-message"><strong>Light Intensity:</strong> UV levels increasing. Shading system activated.</span>
+</div>
+<div class="log-entry warning">
+<span class="log-time">9:00 AM</span>
+<span class="log-icon">🟡</span>
+<span class="log-message"><strong>Nitrogen Low:</strong> Nitrogen levels dropping. Fertilizer application recommended.</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- AI Section -->
+<section class="page-section" id="ai-section">
+<div class="content-card">
+<div class="ai-header">
+<h3>🤖 AI Disease Detection</h3>
+<span class="healthy">Healthy</span>
+</div>
+<div class="image-box">
+<img src="plant.png" alt="Plant Image">
+</div>
+<div class="result">
+<p><b>Status:</b> Healthy</p>
+<div class="confidence">
+<div class="confidence-bar" style="width:94%">94%</div>
+</div>
+</div>
+<div class="recommend">
+<p>✔ Maintain moisture</p>
+<p>✔ Continue current watering schedule</p>
+<p>✔ Monitor pH levels</p>
+</div>
+</div>
+</section>
+
+<!-- Credits Section -->
+<section class="page-section" id="credits-section">
+<div class="content-card">
+<div class="credits-header">
+<h3>👥 Meet Our Team</h3>
+<p class="credits-subtitle">The brilliant minds behind AgriBot-AI</p>
+</div>
+<div class="team-grid">
+<div class="team-card">
+<div class="team-photo">
+<img src="../images/members/ProjectLead.jpg" alt="Project Lead/Backend">
+</div>
+<h4 class="team-name">Lawrence Hernandez</h4>
+<p class="team-role">Project Lead/Backend</p>
+<p class="team-desc">Leading the overall project direction and coordination</p>
+</div>
+<div class="team-card">
+<div class="team-photo">
+<img src="../images/members/WebDeveloper.jpg" alt="Web Developer/Frontend">
+</div>
+<h4 class="team-name">Earl Gian G. Aguila</h4>
+<p class="team-role">Web Developer/Frontend</p>
+<p class="team-desc">Developing the user interface and frontend functionality</p>
+</div>
+<div class="team-card">
+<div class="team-photo">
+<img src="../images/members/WebDeveloper2.jpg" alt="Hardware Engineer/Frontend">
+</div>
+<h4 class="team-name">Ralph Leslie Lapitan</h4>
+<p class="team-role">Hardware Engineer/Frontend</p>
+<p class="team-desc">Designing and implementing sensor systems</p>
+</div>
+<div class="team-card">
+<div class="team-photo">
+<img src="../images/team4.jpg" alt="Team Member 4">
+</div>
+<h4 class="team-name">Ruffa S. Orias</h4>
+<p class="team-role">Data Analyst</p>
+<p class="team-desc">Analyzing sensor data and generating insights</p>
+</div>
+</div>
+<div class="credits-footer">
+<p>🌱 Together, we're revolutionizing smart agriculture!</p>
+</div>
+</div>
+</section>
+
+<!-- Sensor Detail Section -->
+<section class="page-section" id="sensor-detail-section">
+<div class="content-card">
+<div class="sensor-detail-header">
+<h3 id="sensor-detail-title">Sensor Name</h3>
+<span class="sensor-current-value" id="sensor-current-value">--</span>
+</div>
+<div class="sensor-detail-chart">
+<canvas id="sensorDetailChart"></canvas>
+</div>
+<div class="sensor-stats">
+<div class="sensor-stat">
+<span class="stat-label">Min</span>
+<span class="stat-value" id="sensor-min">--</span>
+</div>
+<div class="sensor-stat">
+<span class="stat-label">Max</span>
+<span class="stat-value" id="sensor-max">--</span>
+</div>
+<div class="sensor-stat">
+<span class="stat-label">Average</span>
+<span class="stat-value" id="sensor-avg">--</span>
+</div>
+</div>
+<div class="sensor-tips" id="sensor-tips">
+</div>
+</div>
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
